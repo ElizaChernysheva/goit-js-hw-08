@@ -5,7 +5,7 @@ const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
 
-const saveTimeToLocalStorage = (key, value) => {
+const saveFieldToLocalStorage = (key, value) => {
     try {
         const serializedState = JSON.stringify(value);
         localStorage.setItem(key, serializedState);
@@ -14,7 +14,7 @@ const saveTimeToLocalStorage = (key, value) => {
       }
 }
 
-const getTimeFromLocalStorage = (key) => {
+const getFieldFromLocalStorage = (key) => {
     try {
         const serializedState = localStorage.getItem(key);
         return serializedState === null ? undefined : JSON.parse(serializedState);
@@ -22,14 +22,14 @@ const getTimeFromLocalStorage = (key) => {
         console.error("Get state error: ", error.message);
       }
 }
-const initialTime = getTimeFromLocalStorage("videoplayer-current-time");
+const initialTime = getFieldFromLocalStorage("videoplayer-current-time");
 
 player.setCurrentTime(initialTime);
 
 const getTimeUpdate = function(event) {
-    saveTimeToLocalStorage("videoplayer-current-time", event.seconds);
+  saveFieldToLocalStorage("videoplayer-current-time", event.seconds);
 }
-const throttledFunction = throttle(getTimeUpdate, 1000 * 60);
+const throttledFunction = throttle(getTimeUpdate, 1000);
 player.on('timeupdate', throttledFunction);
 
 
