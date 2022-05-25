@@ -22,7 +22,7 @@ const getFieldFromLocalStorage = (key) => {
         console.error("Get state error: ", error.message);
       }
 }
-const initialTime = getFieldFromLocalStorage("videoplayer-current-time");
+const initialTime = getFieldFromLocalStorage("videoplayer-current-time") || 0;
 
 player.setCurrentTime(initialTime);
 
